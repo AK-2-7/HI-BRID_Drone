@@ -1,0 +1,496 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/BrushedAluminium.proto"
+
+WorldInfo {
+  title "TEST_ZONE"
+  optimalThreadCount 2
+}
+Viewpoint {
+  orientation -0.13954287241433422 -0.001863264355213209 0.9902142773179446 3.1680350426560477
+  position 42.967678553607186 -0.3388621453092878 16.82189412646823
+  exposure 2
+  bloomThreshold 27
+}
+TexturedBackground {
+  texture "stadium"
+  skyColor [
+    1 1 1
+  ]
+}
+TexturedBackgroundLight {
+  texture "stadium"
+  luminosity 0
+}
+RectangleArena {
+  floorSize 100 100
+  floorTileSize 5 5
+  wallThickness 1
+  wallHeight 10
+  wallAppearance BrushedAluminium {
+    IBLStrength 0.6
+  }
+}
+Robot {
+  translation 0 0 5
+  children [
+    LED {
+      translation -3 0 1
+      rotation 0 1 0 0
+      children [
+        PointLight {
+          attenuation 0 0.05 0
+          color 1 0 0
+          intensity 5
+          on FALSE
+          radius 500
+          castShadows TRUE
+        }
+        Shape {
+          appearance PBRAppearance {
+            transparency 0.5
+            roughness 1
+            IBLStrength 0.5
+            emissiveColor 1 1 1
+          }
+          geometry DEF led_shape Capsule {
+            height 0.1
+            radius 0.1
+            subdivision 36
+          }
+        }
+      ]
+      name "LED_0"
+      boundingObject USE led_shape
+      physics Physics {
+        density -1
+        mass 1e-05
+        centerOfMass [
+          0 0 0
+        ]
+        inertiaMatrix [
+          1.2100000000000003e-05 1.2100000000000003e-05 4.6e-06
+          0 0 0
+        ]
+      }
+    }
+    LED {
+      translation 3 0 1
+      rotation 0 1 0 0
+      children [
+        PointLight {
+          attenuation 0 0.05 0
+          color 1 0 0
+          intensity 5
+          on FALSE
+          radius 500
+          castShadows TRUE
+        }
+        Shape {
+          appearance PBRAppearance {
+            transparency 0.5
+            roughness 1
+            IBLStrength 0.5
+            emissiveColor 1 1 1
+          }
+          geometry DEF led_shape Capsule {
+            height 0.1
+            radius 0.1
+            subdivision 36
+          }
+        }
+      ]
+      name "LED_1"
+      boundingObject USE led_shape
+      physics Physics {
+        density -1
+        mass 1e-05
+        centerOfMass [
+          0 0 0
+        ]
+        inertiaMatrix [
+          1.2100000000000003e-05 1.2100000000000003e-05 4.6e-06
+          0 0 0
+        ]
+      }
+    }
+    DEF HINGE_RR HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 -0.8 0.5
+        minStop -2
+        maxStop 2
+      }
+      device [
+        RotationalMotor {
+          name "MOTOR_RR1"
+          controlPID 2 0 0.5
+          maxTorque 5000
+        }
+      ]
+      endPoint Solid {
+        translation -2.4999999999999973 -1.9999999999999998 1.0000000000000007
+        rotation 1 0 0 0
+        children [
+          SliderJoint {
+            jointParameters JointParameters {
+              position -0.999998630362271
+              axis 0 -2.3 -1.22
+              minStop -75
+              maxStop 1
+            }
+            device [
+              LinearMotor {
+                name "MOTOR_SRR"
+                controlPID 2 0 0.5
+                maxForce 5000
+              }
+            ]
+            endPoint Solid {
+              translation 0 -0.8499999999999999 0.4
+              rotation 1 0 0 0.5
+              children [
+                DEF ARM2 Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.333333 0 1
+                    roughness 1
+                    metalness 0.1
+                    IBLStrength 0.5
+                  }
+                  geometry Box {
+                    size 1.25 4 1
+                  }
+                }
+              ]
+              boundingObject USE ARM2
+              physics Physics {
+                density -1
+                mass 0.3
+                centerOfMass [
+                  0 0 0
+                ]
+                inertiaMatrix [
+                  1.0625 0.16015625 1.09765625
+                  0 0 0
+                ]
+              }
+            }
+          }
+          DEF ARM_1 Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.960784 0.529412
+              roughness 1
+              IBLStrength 0.5
+            }
+            geometry DEF ARM_ Box {
+              size 1 3 1
+            }
+          }
+        ]
+        name "solid(3)"
+        boundingObject USE ARM_1
+        physics Physics {
+          density -1
+          mass 0.2
+          centerOfMass [
+            0 0 0
+          ]
+          inertiaMatrix [
+            2500 500 2500
+            0 0 0
+          ]
+        }
+      }
+    }
+    DEF HINGE_FR HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 -0.8 0.5
+        minStop -2
+        maxStop 2
+      }
+      device [
+        RotationalMotor {
+          name "MOTOR_FR1"
+          controlPID 2 0 0.5
+          maxTorque 5000
+        }
+      ]
+      endPoint Solid {
+        translation 2.499999999999999 -2.000000000000001 1.0000000000000002
+        rotation 1 0 0 0
+        children [
+          SliderJoint {
+            jointParameters JointParameters {
+              position -0.999998630361668
+              axis 0 -2.3 -1.22
+              minStop -75
+              maxStop 1
+            }
+            device [
+              LinearMotor {
+                name "MOTOR_SFR"
+                controlPID 2 0 0.5
+                maxForce 5000
+              }
+            ]
+            endPoint Solid {
+              translation 0 -0.8500000000000001 0.4
+              rotation 1 0 0 0.5
+              children [
+                DEF ARM2 Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.333333 0 1
+                    roughness 1
+                    metalness 0.1
+                    IBLStrength 0.5
+                  }
+                  geometry Box {
+                    size 1.25 4 1
+                  }
+                }
+              ]
+              boundingObject USE ARM2
+              physics Physics {
+                density -1
+                mass 0.3
+                centerOfMass [
+                  0 0 0
+                ]
+                inertiaMatrix [
+                  1.0625 0.16015625 1.09765625
+                  0 0 0
+                ]
+              }
+            }
+          }
+          DEF ARM_1 Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.960784 0.529412
+              roughness 1
+              IBLStrength 0.5
+            }
+            geometry DEF ARM_ Box {
+              size 1 3 1
+            }
+          }
+        ]
+        name "solid(2)"
+        boundingObject USE ARM_1
+        physics Physics {
+          density -1
+          mass 0.2
+          centerOfMass [
+            0 0 0
+          ]
+          inertiaMatrix [
+            2500 500 2500
+            0 0 0
+          ]
+        }
+      }
+    }
+    DEF HINGE_RL HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 0.8 0.5
+        minStop -2
+        maxStop 2
+      }
+      device [
+        RotationalMotor {
+          name "MOTOR_RL1"
+          controlPID 2 0 0.5
+          maxTorque 5000
+        }
+      ]
+      endPoint Solid {
+        translation -2.5000300000000006 1.9999788255042037 1.0000508157593113
+        rotation -0.39142643809777594 -0.9202094020082574 -3.7004562976362058e-06 2.13295743921178e-05
+        children [
+          SliderJoint {
+            jointParameters JointParameters {
+              position -0.9999986317260251
+              axis 0 2.3 -1.22
+              minStop -75
+              maxStop 1
+            }
+            device [
+              LinearMotor {
+                name "MOTOR_SRL"
+                controlPID 2 0 0.5
+                maxForce 5000
+              }
+            ]
+            endPoint Solid {
+              translation 0 0.8499999999999999 0.4
+              rotation 1 0 0 -0.5
+              children [
+                DEF ARM2 Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.333333 0 1
+                    roughness 1
+                    metalness 0.1
+                    IBLStrength 0.5
+                  }
+                  geometry Box {
+                    size 1.25 4 1
+                  }
+                }
+              ]
+              boundingObject USE ARM2
+              physics Physics {
+                density -1
+                mass 0.3
+                centerOfMass [
+                  0 0 0
+                ]
+                inertiaMatrix [
+                  1.0625 0.16015625 1.09765625
+                  0 0 0
+                ]
+              }
+            }
+          }
+          DEF ARM_1 Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.960784 0.529412
+              roughness 1
+              IBLStrength 0.5
+            }
+            geometry DEF ARM_ Box {
+              size 1 3 1
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE ARM_1
+        physics Physics {
+          density -1
+          mass 0.2
+          centerOfMass [
+            0 0 0
+          ]
+          inertiaMatrix [
+            2500 500 2500
+            0 0 0
+          ]
+        }
+      }
+    }
+    DEF HINGE_FL HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 0.8 0.5
+        minStop -2
+        maxStop 2
+      }
+      device [
+        RotationalMotor {
+          name "MOTOR_FL1"
+          controlPID 2 0 0.5
+          maxTorque 5000
+        }
+      ]
+      endPoint Solid {
+        translation 2.4999999999999956 1.999999999999999 0.9999999999999999
+        rotation 1 0 0 0
+        children [
+          SliderJoint {
+            jointParameters JointParameters {
+              position -0.9999986317258486
+              axis 0 2.3 -1.22
+              minStop -75
+              maxStop 1
+            }
+            device [
+              LinearMotor {
+                name "MOTOR_SFL"
+                controlPID 2 0 0.5
+                maxForce 5000
+              }
+            ]
+            endPoint Solid {
+              translation 0 0.85 0.4
+              rotation 1 0 0 -0.5
+              children [
+                DEF ARM2 Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.333333 0 1
+                    roughness 1
+                    metalness 0.1
+                    IBLStrength 0.5
+                  }
+                  geometry Box {
+                    size 1.25 4 1
+                  }
+                }
+              ]
+              boundingObject USE ARM2
+              physics Physics {
+                density -1
+                mass 0.3
+                centerOfMass [
+                  0 0 0
+                ]
+                inertiaMatrix [
+                  1.0625 0.16015625 1.09765625
+                  0 0 0
+                ]
+              }
+            }
+          }
+          DEF ARM_1 Shape {
+            appearance PBRAppearance {
+              baseColor 1 0.960784 0.529412
+              roughness 1
+              IBLStrength 0.5
+            }
+            geometry DEF ARM_ Box {
+              size 1 3 1
+            }
+          }
+        ]
+        boundingObject USE ARM_1
+        physics Physics {
+          density -1
+          mass 0.2
+          centerOfMass [
+            0 0 0
+          ]
+          inertiaMatrix [
+            2500 500 2500
+            0 0 0
+          ]
+        }
+      }
+    }
+    DEF BODY_ Shape {
+      appearance PBRAppearance {
+        baseColor 0.25098 0.392157 1
+        roughness 0.7
+        metalness 0.5
+        IBLStrength 0.5
+      }
+      geometry DEF SHAPE_ Box {
+        size 7 2 2
+      }
+    }
+  ]
+  name "DRONE"
+  boundingObject USE BODY_
+  physics Physics {
+    density -1
+    mass 5
+    centerOfMass [
+      0 0 0
+    ]
+    inertiaMatrix [
+      6.666666666666667 44.16666666666667 44.16666666666667
+      0 0 0
+    ]
+  }
+  controller "my_controller_DRONE-27"
+  controllerArgs [
+    ""
+  ]
+}
