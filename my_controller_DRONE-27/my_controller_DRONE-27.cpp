@@ -27,8 +27,12 @@ class HYBRIDE_DRONE {
     LED *led[2];
     Motor *Hinge_BODY[4]; 
     Motor *Slider_BODY[4]; 
+    Motor *Wheel_BODY[4];
+    Motor *Prop_BODY[4];
     const string Hinge_body[4] = {"MOTOR_FL1","MOTOR_RL1","MOTOR_FR1","MOTOR_RR1"};
     const string Slider_body[4] = {"MOTOR_SFL","MOTOR_SRL","MOTOR_SFR","MOTOR_SRR"};
+    const string Wheel_body[4] = {"WHEEL_1","WHEEL_2","WHEEL_3","WHEEL_4"};
+    const string Prop_body[4] = {"PROP_1","PROP_2","PROP_3","PROP_4"};
     int key;
     inline static bool L_ONE = false;
     
@@ -46,6 +50,12 @@ class HYBRIDE_DRONE {
         Slider_BODY[m1] = DRONE->getMotor(Slider_body[m1]);
         Slider_BODY[m1]->setVelocity(1);
         Slider_BODY[m1]->setPosition(0);
+        Wheel_BODY[m1] = DRONE->getMotor(Wheel_body[m1]);
+        Wheel_BODY[m1]->setVelocity(0);
+        Wheel_BODY[m1]->setPosition(INFINITY);
+        Prop_BODY[m1] = DRONE->getMotor(Prop_body[m1]);
+        Prop_BODY[m1]->setVelocity(4.4);
+        Prop_BODY[m1]->setPosition(INFINITY);
       };
     }
     Robot* getRobot(){
@@ -852,7 +862,7 @@ int main(int argc, char **argv) {
 
   // get the time step of the current world.
   int timeStep = (int)robot->getBasicTimeStep();
-    
+  
 
   // You should insert a getDevice-like function in order to get the
   // instance of a device of the robot. Something like:
@@ -866,6 +876,7 @@ int main(int argc, char **argv) {
     // Read the sensors:
     // Enter here functions to read sensor data, like:
     //  double val = ds->getValue();
+    
     drone.Key();
     drone.CONTROLS();
 
